@@ -1,0 +1,141 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    static Scanner sc = new Scanner(System.in);
+
+    static ArrayList<String> medicineNames = new ArrayList<>();
+    static ArrayList<String> dosages = new ArrayList<>();
+    static ArrayList<String> medicineTimes = new ArrayList<>();
+
+    static ArrayList<String> activities = new ArrayList<>();
+    static ArrayList<String> activityTimes = new ArrayList<>();
+
+    public static void main(String[] args) {
+
+        int choice;
+
+        do {
+            System.out.println("\n==================================");
+            System.out.println(" MEDICINE REMINDER & HEALTH SYSTEM");
+            System.out.println("==================================");
+            System.out.println("1. Add Medicine Reminder");
+            System.out.println("2. View Medicine Reminders");
+            System.out.println("3. Add Health Activity");
+            System.out.println("4. View Health Schedule");
+            System.out.println("5. View Complete Schedule");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+
+            choice = readChoice();
+
+            switch (choice) {
+                case 1:
+                    addMedicine();
+                    break;
+
+                case 2:
+                    viewMedicines();
+                    break;
+
+                case 3:
+                    addActivity();
+                    break;
+
+                case 4:
+                    viewActivities();
+                    break;
+
+                case 5:
+                    viewCompleteSchedule();
+                    break;
+
+                case 6:
+                    System.out.println("Thank you for using Health Reminder!");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please enter 1 to 6.");
+            }
+
+        } while (choice != 6);
+
+        sc.close();
+    }
+
+    static int readChoice() {
+        try {
+            return Integer.parseInt(sc.nextLine().trim());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    static void addMedicine() {
+        System.out.print("Enter medicine name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter dosage as prescribed: ");
+        String dosage = sc.nextLine();
+
+        System.out.print("Enter reminder time: ");
+        String time = sc.nextLine();
+
+        medicineNames.add(name);
+        dosages.add(dosage);
+        medicineTimes.add(time);
+
+        System.out.println("Medicine reminder added successfully!");
+    }
+
+    static void viewMedicines() {
+        System.out.println("\n--- MEDICINE REMINDERS ---");
+
+        if (medicineNames.isEmpty()) {
+            System.out.println("No medicine reminders found.");
+            return;
+        }
+
+        for (int i = 0; i < medicineNames.size(); i++) {
+            System.out.println("\nMedicine " + (i + 1));
+            System.out.println("Name: " + medicineNames.get(i));
+            System.out.println("Dosage: " + dosages.get(i));
+            System.out.println("Time: " + medicineTimes.get(i));
+        }
+    }
+
+    static void addActivity() {
+        System.out.print("Enter activity (Exercise, Water, Sleep, etc.): ");
+        String activity = sc.nextLine();
+
+        System.out.print("Enter activity time: ");
+        String time = sc.nextLine();
+
+        activities.add(activity);
+        activityTimes.add(time);
+
+        System.out.println("Health activity added successfully!");
+    }
+
+    static void viewActivities() {
+        System.out.println("\n--- DAILY HEALTH SCHEDULE ---");6
+
+        if (activities.isEmpty()) {
+            System.out.println("No health activities found.");
+            return;
+        }
+
+        for (int i = 0; i < activities.size(); i++) {
+            System.out.println("\nActivity " + (i + 1));
+            System.out.println("Name: " + activities.get(i));
+            System.out.println("Time: " + activityTimes.get(i));
+        }
+    }
+
+    static void viewCompleteSchedule() {
+        System.out.println("\n========== COMPLETE SCHEDULE ==========");
+        viewMedicines();
+        viewActivities();
+    }
+}
